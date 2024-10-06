@@ -26,4 +26,6 @@ jobs:
         with:
           imageName: ghcr.io/sethp/catapult-sdk-devcontainer
           cacheFrom: ghcr.io/sethp/catapult-sdk-devcontainer
+          eventFilterForPush: |
+            workflow_dispatch
 
