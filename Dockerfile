@@ -66,3 +66,5 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     apt update && DEBIAN_FRONTEND=noninteractive apt --no-install-recommends install -y \
     ninja-build \
     usbutils
+
+LABEL org.opencontainers.image.source = "https://github.com/sethp/catapult-sdk-devcontainer"
