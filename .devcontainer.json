@@ -8,7 +8,8 @@
       "installZsh": "true",
       "username": "vscode",
       "userUid": "1000",
-      "userGid": "1000"
+      "userGid": "1000",
+      "upgradePackages": "false"
     },
     "ghcr.io/devcontainers/features/git:1": {
       "version": "latest",
@@ -23,5 +24,8 @@
       ]
     }
   },
-  "remoteUser": "vscode"
+  "remoteUser": "vscode",
+  "remoteEnv": {
+    "PATH": "${containerEnv:PATH}:/opt/imgtec/catapult-sdk_2024.2.1/bin"
+  }
 }

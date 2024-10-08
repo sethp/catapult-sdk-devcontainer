@@ -1,7 +1,10 @@
-# syntax=docker/dockerfile:1
+# syntax=docker/dockerfile:1@sha256:865e5dd094beca432e8c0a1d5e1c465db5f998dca4e439981029b3b81fb39ed5
 FROM scratch AS sdk
 
 # Get BuildKit to download (concurrently) and cache this file for us by ADDing it
+# CAUTION: changing the version will require modifying:
+# - the cmake-tools-kits.json in this file
+# - the PATH environment variable in `.devcontainer.json`
 ADD https://github.com/imgtec-riscv/catapult-sdk/releases/download/v2024.2.1/catapult-sdk_2024.2.1.deb /catapult-sdk.deb
 
 # TODO the catapult-studio extension says this doesn't match the version its expecting (?)
@@ -66,5 +69,30 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     apt update && DEBIAN_FRONTEND=noninteractive apt --no-install-recommends install -y \
     ninja-build \
     usbutils
+
+COPY --chown=1000:1000 <<EOF /home/vscode/.local/share/CMakeTools/cmake-tools-kits.json
+[
+  {
+    "name": "Catapult SDK clang",
+    "toolchainFile": "/opt/imgtec/catapult-sdk_2024.2.1/build/riscv-toolchain-clang.cmake",
+    "isTrusted": true
+  },
+  {
+    "name": "Catapult SDK gcc-elf",
+    "toolchainFile": "/opt/imgtec/catapult-sdk_2024.2.1/build/riscv-toolchain-gcc-elf.cmake",
+    "isTrusted": true
+  },
+  {
+    "name": "Catapult SDK gcc-gnu",
+    "toolchainFile": "/opt/imgtec/catapult-sdk_2024.2.1/build/riscv-toolchain-gcc-gnu.cmake",
+    "isTrusted": true
+  },
+  {
+    "name": "Catapult SDK gcc-musl",
+    "toolchainFile": "/opt/imgtec/catapult-sdk_2024.2.1/build/riscv-toolchain-gcc-musl.cmake",
+    "isTrusted": true
+  }
+]
+EOF
 
 LABEL org.opencontainers.image.source = "https://github.com/sethp/catapult-sdk-devcontainer"
