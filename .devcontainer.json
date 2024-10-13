@@ -27,5 +27,9 @@
   "remoteUser": "vscode",
   "remoteEnv": {
     "PATH": "${containerEnv:PATH}:/opt/imgtec/catapult-sdk_2024.2.1/bin"
-  }
+  },
+  "mounts": [
+    "source=/dev/bus/usb,target=/dev/bus/usb,type=bind"
+  ],
+  "privileged": true
 }
