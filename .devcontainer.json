@@ -19,7 +19,7 @@
   "customizations": {
     "vscode": {
       "extensions": [
-        "ImaginationTech.catapult-studio-pack",
+        "ImaginationTech.catapult-studio-pack@v2024.2.1",
         "llvm-vs-code-extensions.vscode-clangd"
       ]
     }
